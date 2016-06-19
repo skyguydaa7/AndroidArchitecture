@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+
+    <group android:checkableBehavior="single">
+
+        <item android:id="@+id/action_1"
+            android:title="@string/menu_action_home"
+            android:icon="@drawable/abc_ic_menu_share_mtrl_alpha"
+            />
+
+        <item android:id="@+id/action_2"
+            android:title="@string/menu_action_discussions"
+            android:icon="@drawable/abc_ic_menu_copy_mtrl_am_alpha"
+            />
+    </group>
+</menu>

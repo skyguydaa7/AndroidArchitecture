@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">AndroidArchitecture</string>
+
+    <!-- Menu Actions -->
+    <string name="menu_action_home">Home</string>
+    <string name="menu_action_discussions">Discussions</string>
+
 </resources>
