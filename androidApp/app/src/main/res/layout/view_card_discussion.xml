@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <ImageView
+        android:src="@android:drawable/ic_menu_gallery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/card_discussion_imageView"
+        android:layout_weight="0.36"
+        android:scaleType="center" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="match_parent"
+        android:layout_height="39dp"
+        android:id="@+id/card_discussion_title"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textAlignment="textStart"
+        android:layout_gravity="start"/>
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:id="@+id/card_discussion_description" />
+</LinearLayout>
