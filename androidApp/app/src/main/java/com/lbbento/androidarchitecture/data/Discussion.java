@@ -1,6 +1,10 @@
 package com.lbbento.androidarchitecture.data;
 
+import android.database.Cursor;
 import android.support.annotation.Nullable;
+
+import com.google.common.base.Objects;
+import com.lbbento.androidarchitecture.data.source.local.DiscussionsPersistenceContract;
 
 import java.util.UUID;
 
@@ -17,7 +21,7 @@ public final class Discussion {
 
 
     /**
-     * Use this constructor to create a new active Task.
+     * Use this constructor to create a new Discussion.
      *
      * @param title
      * @param description
@@ -28,6 +32,44 @@ public final class Discussion {
         this.description = description;
         this.imageUrl = imageUrl;
     }
+
+    /**
+     * Use this constructor to specify a discussion
+     *
+     * @param title
+     * @param description
+     * @param id
+     * @param imageUrl
+     */
+    public Discussion(@Nullable String title, @Nullable String description, String id, String imageUrl) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.imageUrl = imageUrl;
+    }
+    /**
+     * Convert the cursor to a object
+     *
+     * @param cursor
+     * @return Discussion
+     */
+    public static Discussion fromCursor(Cursor cursor) {
+        try
+        {
+            String entryId = cursor.getString(cursor.getColumnIndexOrThrow(DiscussionsPersistenceContract.DiscussionEntry.COLUMN_NAME_ENTRY_ID));
+            String title = cursor.getString(cursor.getColumnIndexOrThrow(DiscussionsPersistenceContract.DiscussionEntry.COLUMN_NAME_TITLE));
+            String description = cursor.getString(cursor.getColumnIndexOrThrow(DiscussionsPersistenceContract.DiscussionEntry.COLUMN_NAME_DESCRIPTION));
+            String imageUrl = cursor.getString(cursor.getColumnIndexOrThrow(DiscussionsPersistenceContract.DiscussionEntry.COLUMN_NAME_IMAGE_URL));
+            return new Discussion(title, description, entryId, imageUrl);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
 
     public String getId() {
         return id;
@@ -43,5 +85,22 @@ public final class Discussion {
 
     public String getImageUrl() {
         return imageUrl;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Discussion discussion = (Discussion) o;
+        return Objects.equal(id, discussion.id) &&
+                Objects.equal(title, discussion.title) &&
+                Objects.equal(description, discussion.description) &&
+                Objects.equal(imageUrl, discussion.imageUrl);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id, title, description, imageUrl);
     }
 }

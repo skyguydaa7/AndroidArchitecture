@@ -1,5 +1,6 @@
 package com.lbbento.androidarchitecture.main;
 
+import android.content.Context;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -7,9 +8,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.AttributeSet;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.lbbento.androidarchitecture.R;
+import com.lbbento.androidarchitecture.discussions.DiscussionsFragment;
 import com.lbbento.androidarchitecture.home.HomeFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -43,16 +47,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_launcher);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        //Initialize with home fragment
+        switchContent(HomeFragment.newInstance());
     }
+
 
     @Override
     public boolean onNavigationItemSelected(MenuItem menuselected) {
         switch (menuselected.getItemId()) {
             case R.id.action_1:
-                switchContent(HomeFragment.newInstance(menuselected.getTitle().toString()));
+                switchContent(HomeFragment.newInstance());
                 break;
             case R.id.action_2:
-                switchContent(DiscussionsFragment.newInstance(menuselected.getTitle().toString()));
+                switchContent(DiscussionsFragment.newInstance());
                 break;
             default:
                 return false;

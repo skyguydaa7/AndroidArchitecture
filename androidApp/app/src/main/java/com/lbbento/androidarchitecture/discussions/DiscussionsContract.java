@@ -1,5 +1,6 @@
 package com.lbbento.androidarchitecture.discussions;
 
+import android.database.Cursor;
 import android.support.annotation.NonNull;
 
 import com.lbbento.androidarchitecture.BasePresenter;
@@ -19,11 +20,8 @@ public interface DiscussionsContract {
 
         void setLoadingIndicator(boolean active);
 
-        void showDiscussions(List<Discussion> discussions);
+        void showDiscussions(@NonNull Cursor discussions);
 
-        void showLoadingDiscussionsError();
-
-        void showNoDiscussions();
 
         boolean isActive();
 
@@ -31,11 +29,15 @@ public interface DiscussionsContract {
 
     interface Presenter extends BasePresenter {
 
-        void result(int requestCode, int resultCode);
+        void loadDiscussions();
 
-        void loadDiscussions(boolean forceUpdate);
+        void openDiscussionDetails(@NonNull Discussion discussion);
 
-        void openDiscussionDetails(@NonNull Discussion requestedDiscussion);
+    }
+
+    interface DiscussionItemListener {
+
+        void onDiscussionClick(Discussion discussion);
 
     }
 }

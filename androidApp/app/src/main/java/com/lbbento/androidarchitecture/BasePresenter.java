@@ -7,8 +7,6 @@ package com.lbbento.androidarchitecture;
 
 public interface BasePresenter {
 
-    void subscribe();
-
-    void unsubscribe();
+    void start();
 
 }

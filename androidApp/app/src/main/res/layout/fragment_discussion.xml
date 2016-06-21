@@ -12,8 +12,8 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/discussionsRecyclerView"
-        android:layout_width="305dp"
-        android:layout_height="49dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintLeft_toLeftOf="@+id/activity_main"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
@@ -33,5 +33,6 @@
         app:layout_constraintLeft_toLeftOf="@+id/activity_main"
         app:layout_constraintRight_toRightOf="@+id/activity_main"
         app:layout_constraintBottom_toTopOf="@+id/discussionsRecyclerView"
-        android:layout_marginBottom="48dp" />
+        android:layout_marginBottom="48dp"
+        android:visibility="gone"/>
 </android.support.constraint.ConstraintLayout>

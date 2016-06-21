@@ -1,5 +1,7 @@
 package com.lbbento.androidarchitecture.discussions;
 
+import android.content.Context;
+import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lbbento.androidarchitecture.R;
+import com.lbbento.androidarchitecture.custom.RecyclerViewCursorAdapter;
 import com.lbbento.androidarchitecture.data.Discussion;
 import com.squareup.picasso.Picasso;
 
@@ -15,38 +18,16 @@ import java.util.List;
 
 /**
  * Created by lbbento on 20/06/2016.
- * Discussions recyclerView adapter
+ * Discussions recyclerView adapter using cursor
  */
 
+public class DiscussionsAdapter extends RecyclerViewCursorAdapter<DiscussionsAdapter.ViewHolder> {
 
-public class DiscussionsAdapter extends RecyclerView.Adapter<DiscussionsAdapter.ViewHolder> {
+    private final DiscussionsContract.DiscussionItemListener mItemListener;
 
-    private List<Discussion> items;
-    private int itemLayout;
-
-    public DiscussionsAdapter(List<Discussion> items, int itemLayout) {
-        this.items = items;
-        this.itemLayout = itemLayout;
-    }
-
-    @Override public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(itemLayout, parent, false);
-        return new ViewHolder(v);
-    }
-
-    @Override public void onBindViewHolder(ViewHolder holder, int position) {
-        Discussion item = items.get(position);
-
-        holder.title.setText(item.getTitle());
-        holder.description.setText(item.getDescription());
-        holder.image.setImageBitmap(null);
-        Picasso.with(holder.image.getContext()).cancelRequest(holder.image);
-        Picasso.with(holder.image.getContext()).load(item.getImageUrl()).into(holder.image);
-        holder.itemView.setTag(item);
-    }
-
-    @Override public int getItemCount() {
-        return items.size();
+    public DiscussionsAdapter(Context context, Cursor cursor, DiscussionsContract.DiscussionItemListener discussionItemListener){
+        super(context,cursor);
+        mItemListener = discussionItemListener;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -60,5 +41,35 @@ public class DiscussionsAdapter extends RecyclerView.Adapter<DiscussionsAdapter.
             title = (TextView) itemView.findViewById(R.id.card_discussion_title);
             description = (TextView) itemView.findViewById(R.id.card_discussion_description);
         }
+
+    }
+
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.view_card_discussion, parent, false);
+        ViewHolder vh = new ViewHolder(itemView);
+        return vh;
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder viewHolder, Cursor cursor) {
+        final Discussion mDiscussion = Discussion.fromCursor(cursor);
+
+
+        viewHolder.title.setText(mDiscussion.getTitle());
+        viewHolder.description.setText(mDiscussion.getDescription());
+        viewHolder.image.setImageBitmap(null);
+        Picasso.with(viewHolder.image.getContext()).cancelRequest(viewHolder.image);
+        Picasso.with(viewHolder.image.getContext()).load(mDiscussion.getImageUrl()).into(viewHolder.image);
+        viewHolder.itemView.setTag(mDiscussion);
+
+        //OnClick
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mItemListener.onDiscussionClick(mDiscussion);
+            }
+        });
     }
 }

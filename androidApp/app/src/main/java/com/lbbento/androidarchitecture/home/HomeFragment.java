@@ -22,12 +22,9 @@ public class HomeFragment extends Fragment{
         // public constructor
     }
 
-    public static HomeFragment newInstance(String title) {
+    public static HomeFragment newInstance() {
         HomeFragment f = new HomeFragment();
 
-        Bundle args = new Bundle();
-        args.putSerializable(PARAM_TITLE, title);
-        f.setArguments(args);
         return f;
     }
 
@@ -44,10 +41,8 @@ public class HomeFragment extends Fragment{
         super.onCreate(savedInstanceState);
 
         //Title
-        Bundle args = getArguments();
-        if (args != null) {
-            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle((String)args.getSerializable(PARAM_TITLE));
-        }
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getResources().getString(R.string.menu_action_home));
+
 
     }
 
